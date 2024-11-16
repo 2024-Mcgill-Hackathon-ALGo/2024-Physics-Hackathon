@@ -1,14 +1,14 @@
 import arcade
 
 class ElementBox:
-    def __init__(self, element, x, y):
+    def __init__(self, element, x, y, size):
         self.element = element # element object 
         
         self.x = x  
         self.y = y  
         
-        self.width = 35  # Width and height of each element box
-        self.height = 35  
+        self.width =  size # Width and height of each element box
+        self.height = size  
         
     def __repr__(self):
         # java toString equivalent

@@ -4,6 +4,7 @@ import arcade.gui
 from views import PeriodicTable
 
 
+
 class MainMenuView(arcade.View):
     def __init__(self):
         super().__init__()

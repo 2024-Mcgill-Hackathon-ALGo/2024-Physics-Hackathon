@@ -33,10 +33,10 @@ class PeriodicTableView(arcade.View):
                 element_data['atomic_mass']
             )
             # spacing between elements
-            xpos = element_data['xpos'] * self.window.get_size()[0] / 19
-            ypos = element_data['ypos'] * -60 + self.window.get_size()[1]
+            xpos = element_data['xpos'] * (self.window.get_size()[0] / 20) + self.window.get_size()[0] / 20
+            ypos = element_data['ypos'] * -(self.window.get_size()[1] / 12) + self.window.get_size()[1]
 
-            element_box = ElementBox(element, xpos, ypos)
+            element_box = ElementBox(element, xpos, ypos, self.window.get_size()[1] / 15)
             self.elements.append(element_box)
 
     def on_draw(self):
