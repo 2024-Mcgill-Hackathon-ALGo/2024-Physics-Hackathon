@@ -44,6 +44,8 @@ class PeriodicTableWindow(arcade.Window):
         for element in self.elements:
             element.draw()
 
+        arcade.draw_text("Please select an element", 250, 500, arcade.color.WHITE, 20)
+
         if self.selected_element:
             arcade.draw_text(f"Selected Element: {self.selected_element.element.name} ({self.selected_element.element.symbol})", 10, 20, arcade.color.BLACK, 14)
 

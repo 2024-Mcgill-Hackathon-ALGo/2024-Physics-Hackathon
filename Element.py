@@ -5,7 +5,6 @@ class Element:
         self.name = name
         self.atomic_number = atomic_number
         self.atomic_weight = atomic_weight
-    
     # endregion constructeurs 
              
     # region méthodes
