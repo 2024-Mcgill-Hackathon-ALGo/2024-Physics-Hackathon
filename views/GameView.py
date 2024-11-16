@@ -91,13 +91,14 @@ class GameView(arcade.View):
             pass
             
         self.center_camera_to_player()
+        self.decay_opportunity.on_update(delta_time)
             
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
         pass
             
 if __name__ == "__main__":
-    window =  arcade.Window(1920, 1080)
+    window = arcade.Window(1920, 1080)
     gameview = GameView()
     gameview.setup()
     window.show_view(gameview)
