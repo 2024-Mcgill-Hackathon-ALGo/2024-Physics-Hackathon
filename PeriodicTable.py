@@ -11,9 +11,9 @@ from Element import Element
     for now theres a print statement that will print the name and symbol of the element clicked for debugging purposes.
 """
 
-class PeriodicTableView(arcade.Window):
-    def __init__(self, width, height, title, json_data):
-        super().__init__(width, height, title)
+class PeriodicTableView(arcade.View):
+    def __init__(self):
+        super().__init__()
         
         # array of all elements
         self.elements = []
@@ -22,7 +22,7 @@ class PeriodicTableView(arcade.Window):
         self.selected_element = None
         
         # draw elements from json
-        self.create_elements(json_data)
+        self.create_elements(load_json_data("ressources/PeriodicTable/TableauPeriodiqueInfo.json"))
 
     def create_elements(self, json_data):
         for element_data in json_data["elements"]:

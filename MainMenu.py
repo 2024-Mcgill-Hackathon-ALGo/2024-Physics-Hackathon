@@ -1,5 +1,6 @@
 import arcade
 import arcade.gui
+import PeriodicTable
 
 # Constants for the screen
 SCREEN_WIDTH = 1920
@@ -91,6 +92,8 @@ class MainMenuView(arcade.View):
     def start_game(self, event):
         print("Start Game clicked")
         #
+        periodic_table_view = PeriodicTable.PeriodicTableView()
+        arcade.get_window().show_view(periodic_table_view)
 
     def start_settings(self, event):
         print("Options clicked")
