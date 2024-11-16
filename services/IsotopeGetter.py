@@ -22,3 +22,9 @@ def printIsotopes(element):
     for element, nuclides in sorted(nuclides_by_element.items()):
         if element == element:
             print(f"{element}: {', '.join(nuclides)}")
+
+def returnIsotopeDictionary():
+    return nuclides_by_element
+
+def returnIsotopes(element):
+    return nuclides_by_element[element]
