@@ -92,6 +92,7 @@ class MainMenuView(arcade.View):
         #
         periodic_table_view = PeriodicTable.PeriodicTableView()
         arcade.get_window().show_view(periodic_table_view)
+        self.manager.disable()
 
     def start_settings(self, event):
         print("Options clicked")
