@@ -5,7 +5,7 @@ from arcade import Sprite
 from pyglet.math import Vec2
 
 
-class DecaySprint(Sprite):
+class DecaySprite(Sprite):
     def __init__(self):
         super().__init__(hit_box_algorithm="None")
         self.radius = 20

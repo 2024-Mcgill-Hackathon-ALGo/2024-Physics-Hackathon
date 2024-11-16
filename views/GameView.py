@@ -1,7 +1,7 @@
 import arcade
 
 from model.DecayingElement import DecayingElement
-from widgets.DecaySprit import DecaySprint
+from widgets.DecaySprite import DecaySprite
 from widgets.Player import Player
 from widgets.DebuggingSquare import TestSquare
 
@@ -16,7 +16,8 @@ class GameView(arcade.View):
         self.background = None
         self.camera = None
         self.element = element
-        self.decay_opportunity = DecaySprint()
+        self.decay_opportunity = DecaySprite()
+        self.decay_opportunities = SpriteList
         
     def setup(self):
         width, height = self.window.get_size()
@@ -86,6 +87,7 @@ class GameView(arcade.View):
         self.player.update(delta_time)
         
         #test collision
+        player_collision_list = arcade.check_for_collision_with_lists(self.player, self.decay_opportunity])
         if self.player.isColliding(self.square.x, self.square.y, self.square.width, self.square.height):
             # print("Colliding")
             pass
