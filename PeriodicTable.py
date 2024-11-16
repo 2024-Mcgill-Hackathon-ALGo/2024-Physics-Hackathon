@@ -11,7 +11,7 @@ from Element import Element
     for now theres a print statement that will print the name and symbol of the element clicked for debugging purposes.
 """
 
-class PeriodicTableWindow(arcade.Window):
+class PeriodicTableView(arcade.Window):
     def __init__(self, width, height, title, json_data):
         super().__init__(width, height, title)
         
@@ -62,5 +62,5 @@ def load_json_data(filename):
 
 if __name__ == "__main__":
     json_data = load_json_data("ressources/PeriodicTable/TableauPeriodiqueInfo.json")
-    window = PeriodicTableWindow(800, 600, "Periodic Table", json_data)
+    window = PeriodicTableView(800, 600, "Periodic Table", json_data)
     arcade.run()
