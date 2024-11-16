@@ -1,4 +1,5 @@
 import arcade
+from arcade import SpriteList
 
 from model.DecayingElement import DecayingElement
 from widgets.DecaySprite import DecaySprite
@@ -17,7 +18,8 @@ class GameView(arcade.View):
         self.camera = None
         self.element = element
         self.decay_opportunity = DecaySprite()
-        self.decay_opportunities = SpriteList
+        self.decay_opportunities = SpriteList()
+        self.decay_opportunities.append(self.decay_opportunity)
         
     def setup(self):
         width, height = self.window.get_size()
@@ -55,8 +57,12 @@ class GameView(arcade.View):
         # endregion
         self.player.draw()
         self.square.draw()
-        self.decay_opportunity.draw()
-        
+        #self.decay_opportunity.draw()
+        for sprite in self.decay_opportunities.sprite_list:
+            sprite.draw()
+
+        # self.decay_opportunities.draw_hit_boxes()
+
 
     def center_camera_to_player(self):
         screen_center_x = self.player.center_x - (self.camera.viewport_width / 2)
@@ -87,10 +93,12 @@ class GameView(arcade.View):
         self.player.update(delta_time)
         
         #test collision
-        player_collision_list = arcade.check_for_collision_with_lists(self.player, self.decay_opportunity])
-        if self.player.isColliding(self.square.x, self.square.y, self.square.width, self.square.height):
-            # print("Colliding")
-            pass
+        player_collision_list = arcade.check_for_collision_with_lists(self.player, [self.decay_opportunities])
+        for sprit in player_collision_list:
+            print(sprit.center_x)
+            if isinstance(sprit, DecaySprite):
+                pass
+
             
         self.center_camera_to_player()
         self.decay_opportunity.on_update(delta_time)
