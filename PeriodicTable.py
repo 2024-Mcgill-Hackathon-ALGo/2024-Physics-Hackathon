@@ -3,6 +3,14 @@ import json
 from ElementBox import ElementBox
 from Element import Element
 
+"""
+    JSON found in ressources/PeriodicTable/TableauPeriodiqueInfo.json
+    Element.py = is the class that contains the data and any methode that directly affects the data of the element.
+    ElementBox.py = is the visual representation of each element using python arcade.
+    PeriodicTable.py = is the view. It draws the table and allows the user to click an element which will be stored in the selected_element variable.
+    for now theres a print statement that will print the name and symbol of the element clicked for debugging purposes.
+"""
+
 class PeriodicTableWindow(arcade.Window):
     def __init__(self, width, height, title, json_data):
         super().__init__(width, height, title)
