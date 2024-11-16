@@ -1,24 +1,35 @@
 import arcade
+import json
 from ElementBox import ElementBox
-from Element import Element 
+from Element import Element
 
 class PeriodicTableWindow(arcade.Window):
-    def __init__(self, width, height, title):
+    def __init__(self, width, height, title, json_data):
         super().__init__(width, height, title)
+        
+        # array of all elements
         self.elements = []
         
-        # var that will hold our selected element we can eventually pass this to the main game loop
+        # var containing last clicked element
         self.selected_element = None
-        self.create_elements()
+        
+        # draw elements from json
+        self.create_elements(json_data)
 
-    def create_elements(self):
-        self.elements = [
-            # hand made elements for now (also for now im just hard coding in x and y values but eventually we should use the window width and height to calculate these)
-            ElementBox(Element('H', 'Hydrogen', 1, 1.008), 20, 550),
-            ElementBox(Element('He', 'Helium', 2, 4.0026), 780, 550),
-            ElementBox(Element('Li', 'Lithium', 3, 6.94), 20, 513),
-            ElementBox(Element('Be', 'Beryllium', 4, 9.0122), 57, 513),
-        ]
+    def create_elements(self, json_data):
+        for element_data in json_data["elements"]:
+            element = Element(
+                element_data['symbol'],
+                element_data['name'],
+                element_data['number'],
+                element_data['atomic_mass']
+            )
+            # spacing between elements
+            xpos = element_data['xpos'] * 42  
+            ypos = element_data['ypos'] * -42 + 500  
+
+            element_box = ElementBox(element, xpos, ypos)
+            self.elements.append(element_box)
 
     def on_draw(self):
         arcade.start_render()
@@ -32,10 +43,14 @@ class PeriodicTableWindow(arcade.Window):
         for element in self.elements:
             if element.is_clicked(x, y):
                 self.selected_element = element
-                print(f"Element clicked: {self.selected_element.element.name} ({self.selected_element.element.symbol})") 
+                print(f"Element clicked: {element.element.name} ({element.element.symbol})")
                 break
 
+def load_json_data(filename):
+    with open(filename, 'r', encoding='utf-8') as file:
+        return json.load(file)
 
-# Run the game
-window = PeriodicTableWindow(800, 600, "Periodic Table Clicker")
-arcade.run()
+if __name__ == "__main__":
+    json_data = load_json_data("ressources/PeriodicTable/TableauPeriodiqueInfo.json")
+    window = PeriodicTableWindow(800, 600, "Periodic Table", json_data)
+    arcade.run()
