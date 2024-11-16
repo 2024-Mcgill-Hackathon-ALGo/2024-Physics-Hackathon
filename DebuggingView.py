@@ -1,6 +1,6 @@
 import arcade
-from Player import Player
-from DebuggingSquare import TestSquare
+from widgets.Player import Player
+from widgets.DebuggingSquare import TestSquare
 
 MOVEMENT_SPEED = 5
 

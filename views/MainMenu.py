@@ -1,11 +1,7 @@
 import arcade
 import arcade.gui
-import PeriodicTable
 
-# Constants for the screen
-SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 1080
-SCREEN_TITLE = "Main Menu with Arcade GUI Buttons"
+from views import PeriodicTable
 
 
 class MainMenuView(arcade.View):
@@ -47,7 +43,8 @@ class MainMenuView(arcade.View):
     def setup(self):
         try:
             # Load the background image
-            self.background = arcade.load_texture(r"ressources\MainMenu\images\Atom-Desktop-Wallpaper-1183943868.jpeg")
+            self.background = arcade.load_texture(
+                r"./ressources/MainMenu/images/Atom-Desktop-Wallpaper-1183943868.jpeg")
         except FileNotFoundError:
             print("Background image not found. Ensure the path is correct.")
             self.background = None
@@ -61,8 +58,8 @@ class MainMenuView(arcade.View):
         arcade.draw_lrwh_rectangle_textured(
             0,
             0,
-            SCREEN_WIDTH,
-            SCREEN_HEIGHT,
+            self.window.get_size()[0],
+            self.window.get_size()[1],
             self.background
         )
 
@@ -75,8 +72,8 @@ class MainMenuView(arcade.View):
             "ALGo periodic game",
 
             # position
-            SCREEN_WIDTH / 2,
-            SCREEN_HEIGHT / 2 + 150,
+            self.window.get_size()[0] / 2,
+            self.window.get_size()[1] / 2 + 150,
 
             # color
             arcade.color.BLACK,
@@ -104,16 +101,3 @@ class MainMenuView(arcade.View):
         arcade.close_window()
 
 
-# Main function
-def main():
-    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-
-    main_menu = MainMenuView()
-    main_menu.setup()
-
-    window.show_view(main_menu)
-    arcade.run()
-
-
-if __name__ == "__main__":
-    main()

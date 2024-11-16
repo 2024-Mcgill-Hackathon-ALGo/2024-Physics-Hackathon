@@ -1,6 +1,6 @@
 import arcade
-from Player import Player
-from DebuggingSquare import TestSquare
+from widgets.Player import Player
+from widgets.DebuggingSquare import TestSquare
 
 MOVEMENT_SPEED = 5
 
@@ -17,7 +17,7 @@ class GameView(arcade.View):
         width, height = self.window.get_size()
         self.camera = arcade.Camera(width, height)
         try:    
-            self.background = arcade.load_texture(r"ressources\CharacterBranch\34713.jpg")
+            self.background = arcade.load_texture(r"../ressources/CharacterBranch/34713.jpg")
         except:
             print("Error loading background image")
             self.background = None

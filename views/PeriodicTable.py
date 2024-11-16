@@ -1,8 +1,7 @@
 import arcade
 import json
-from ElementBox import ElementBox
-from Element import Element
-from MainMenu import SCREEN_WIDTH, SCREEN_HEIGHT
+from widgets.ElementBox import ElementBox
+from model.Element import Element
 
 """
     JSON found in ressources/PeriodicTable/TableauPeriodiqueInfo.json
@@ -34,8 +33,8 @@ class PeriodicTableView(arcade.View):
                 element_data['atomic_mass']
             )
             # spacing between elements
-            xpos = element_data['xpos'] * SCREEN_WIDTH/19
-            ypos = element_data['ypos'] * -60 + SCREEN_HEIGHT
+            xpos = element_data['xpos'] * self.window.get_size()[0] / 19
+            ypos = element_data['ypos'] * -60 + self.window.get_size()[1]
 
             element_box = ElementBox(element, xpos, ypos)
             self.elements.append(element_box)
@@ -45,7 +44,7 @@ class PeriodicTableView(arcade.View):
         for element in self.elements:
             element.draw()
 
-        arcade.draw_text("Please select an element", 250, SCREEN_HEIGHT/10 * 9, arcade.color.WHITE, 20)
+        arcade.draw_text("Please select an element", 250, self.window.get_size()[1]/10 * 9, arcade.color.WHITE, 20)
 
         if self.selected_element:
             arcade.draw_text(f"Selected Element: {self.selected_element.element.name} ({self.selected_element.element.symbol})", 10, 20, arcade.color.BLACK, 14)
