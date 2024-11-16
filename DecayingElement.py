@@ -1,4 +1,5 @@
 from Element import Element
+from DecayType import DecayType
 
 class DecayingElement(Element):
     def __init__(self, symbol, name, atomic_number, atomic_weight, possible_decays):
@@ -9,7 +10,7 @@ class DecayingElement(Element):
         # example: {"alpha": "He"}
         # example: {"beta-": "B"}
         # example: {"beta+": "C"}
-        self.possible_decays = possible_decays
+        self.possible_decays: dict[DecayType, Element] = possible_decays
         
     def decay(self, decay_type):
         if decay_type in self.possible_decays:
