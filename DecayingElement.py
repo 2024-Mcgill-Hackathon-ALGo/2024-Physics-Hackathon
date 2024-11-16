@@ -19,6 +19,7 @@ class DecayingElement(Element):
             return self.possible_decays[decay_type]
         else:
             print(f"Decay type {decay_type} not possible for {self.symbol}")
+            return None
             
     def fetchDecayingElementData(self, symbol):
         # fetch data from json
