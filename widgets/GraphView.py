@@ -1,7 +1,8 @@
 from arcade import Window
 import arcade
 import arcade.color
-from MainMenu import SCREEN_WIDTH, SCREEN_HEIGHT
+
+from main import SCREEN_WIDTH, SCREEN_HEIGHT
 
 
 def view_graph():
