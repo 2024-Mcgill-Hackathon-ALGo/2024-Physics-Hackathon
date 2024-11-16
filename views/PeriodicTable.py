@@ -1,9 +1,8 @@
 import arcade
 import json
-
-from views.GameView import GameView
 from widgets.ElementBox import ElementBox
 from model.Element import Element
+from views import IsotopeSelection
 
 """
     JSON found in ressources/PeriodicTable/TableauPeriodiqueInfo.json
@@ -48,17 +47,15 @@ class PeriodicTableView(arcade.View):
 
         arcade.draw_text("Please select an element", 250, self.window.get_size()[1]/10 * 9, arcade.color.WHITE, 20)
 
-        if self.selected_element:
-            arcade.draw_text(f"Selected Element: {self.selected_element.element.name} ({self.selected_element.element.symbol})", 10, 20, arcade.color.BLACK, 14)
+
 
     def on_mouse_press(self, x, y, button, modifiers):
         for element in self.elements:
             if element.is_clicked(x, y):
-                self.selected_element = element
-                print(f"Element clicked: {element.element.name} ({element.element.symbol})")
-                game_view = GameView(None)
-                game_view.setup()
-                arcade.get_window().show_view(game_view)
+                # self.selected_element = element
+                # print(f"Element clicked: {element.element.name} ({element.element.symbol})")
+                isotope_view = IsotopeSelection.IsotopeSelectionView(selected_element=element)
+                arcade.get_window().show_view(isotope_view)
                 break
 
 def load_json_data(filename):
