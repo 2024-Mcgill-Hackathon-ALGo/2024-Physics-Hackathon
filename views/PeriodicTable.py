@@ -1,5 +1,7 @@
 import arcade
 import json
+
+from views.GameView import GameView
 from widgets.ElementBox import ElementBox
 from model.Element import Element
 
@@ -54,6 +56,9 @@ class PeriodicTableView(arcade.View):
             if element.is_clicked(x, y):
                 self.selected_element = element
                 print(f"Element clicked: {element.element.name} ({element.element.symbol})")
+                game_view = GameView(None)
+                game_view.setup()
+                arcade.get_window().show_view(game_view)
                 break
 
 def load_json_data(filename):

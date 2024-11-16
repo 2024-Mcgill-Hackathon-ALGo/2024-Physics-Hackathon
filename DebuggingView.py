@@ -51,8 +51,8 @@ class DebuggingView(arcade.Window):
         
 
     def center_camera_to_player(self):
-        screen_center_x = self.player.x - (self.camera.viewport_width / 2)
-        screen_center_y = self.player.y - (self.camera.viewport_height / 2)
+        screen_center_x = self.player.center_x - (self.camera.viewport_width / 2)
+        screen_center_y = self.player.center_y - (self.camera.viewport_height / 2)
 
         if screen_center_x < 0:
             screen_center_x = 0
