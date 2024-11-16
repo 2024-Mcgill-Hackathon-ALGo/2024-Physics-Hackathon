@@ -12,9 +12,11 @@ class DecayingElement(Element):
         # example: {"beta+": "C"}
         self.possible_decays: dict[DecayType, Element] = possible_decays
         
+        
+    # if the decay done is possible return the child isotope 
     def decay(self, decay_type):
         if decay_type in self.possible_decays:
-            self.fetchDecayingElementData(self.possible_decays[decay_type])
+            return self.possible_decays[decay_type]
         else:
             print(f"Decay type {decay_type} not possible for {self.symbol}")
             
