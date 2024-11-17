@@ -42,7 +42,7 @@ class IsotopeSelectionView(arcade.View):
         if self.selected_element and self.selected_element.element:
             arcade.draw_text(
                 f"Selected Element: {self.selected_element.element.name} ({self.selected_element.element.symbol})",
-                100, 100, arcade.color.BLACK, 18
+                self.window.get_size()[0] /2, self.window.get_size()[1]/4, arcade.color.BLACK, 18, anchor_x="center"
             )
         else:
             arcade.draw_text("No element selected", 100, 100, arcade.color.BLACK, 18)
@@ -61,7 +61,7 @@ class IsotopeSelectionView(arcade.View):
         # Adjust the starting position to ensure boxes don't go out of bounds on the left
         # the logic for how to place the boxes came from chatGPT so, yes, its confusing but it works
         # i commented it as much as possible to make it easier to understand
-        x_start_pos = padding + box_width / 2
+        x_start_pos = padding + box_width / 2 + window_width / 6
 
         # Create a box for each isotope
         for i, isotope in enumerate(self.isotopes[:max_isotopes_to_display]):
