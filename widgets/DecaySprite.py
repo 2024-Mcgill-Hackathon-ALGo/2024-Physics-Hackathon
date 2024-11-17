@@ -8,11 +8,11 @@ from model.DecayType import DecayType
 
 
 class DecaySprite(Sprite):
-    def __init__(self, decay_type, center_x, center_y):
+    def __init__(self, decay_type, center_x, center_y, radius=20):
         super().__init__(hit_box_algorithm="None", center_x=center_x, center_y=center_y)
-        self.radius = 20
+        self.radius = radius
         self.max_speed = 10
-        self.set_hit_box([(20, 20), (-20, 20), (-20, -20), (20, -20)])
+        self.set_hit_box([(radius, radius), (-radius, radius), (-radius, -radius), (radius, -radius)])
         self.decay_type = decay_type
 
         if decay_type == DecayType.ALPHA:
