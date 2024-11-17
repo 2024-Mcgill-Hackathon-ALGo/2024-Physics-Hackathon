@@ -5,12 +5,13 @@ from arcade import Sprite
 from pyglet.math import Vec2
 
 
-class DecaySprint(Sprite):
-    def __init__(self):
+class DecaySprite(Sprite):
+    def __init__(self, decay_type):
         super().__init__(hit_box_algorithm="None")
         self.radius = 20
         self.max_speed = 10
         self.set_hit_box([(20, 20), (-20, 20), (-20, -20), (20, -20)])
+        self.decay_type = decay_type
 
     def on_update(self, delta_time: float = 1 / 60):
         vector = Vec2(random.uniform(-1, 1),
