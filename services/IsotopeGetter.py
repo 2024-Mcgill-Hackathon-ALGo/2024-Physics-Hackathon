@@ -1,5 +1,6 @@
 import radioactivedecay as rd
 from collections import defaultdict
+from .ElementMapper import mapper
 
 decay_data = rd.DEFAULTDATA
 nuclides_by_element = defaultdict(list)
@@ -8,11 +9,13 @@ nuclides_by_element = defaultdict(list)
 for nuclide in decay_data.nuclides:
     if decay_data.half_life(nuclide) != float('inf'):
         element_symbol = ''.join(filter(str.isalpha, nuclide))
-        nuclides_by_element[element_symbol].append(nuclide)
+        if mapper.toDecayingElement(nuclide).possible_decays != {}:
+            nuclides_by_element[element_symbol].append(nuclide)
 
 # Sort the nuclides by element
 for element in nuclides_by_element:
     nuclides_by_element[element].sort()
+    
 
 # Convert the defaultdict to a regular dictionary
 nuclides_by_element = dict(nuclides_by_element)
@@ -28,3 +31,4 @@ def returnIsotopeDictionary():
 
 def returnIsotopes(element):
     return nuclides_by_element[element]
+

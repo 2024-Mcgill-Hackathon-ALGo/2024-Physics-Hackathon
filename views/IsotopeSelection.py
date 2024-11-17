@@ -9,7 +9,10 @@ class IsotopeSelectionView(arcade.View):
         super().__init__()
         
         self.selected_element = selected_element
-        self.isotopes = IsotopeGetter.returnIsotopes(selected_element.element.symbol)
+        try:
+            self.isotopes = IsotopeGetter.returnIsotopes(selected_element.element.symbol)
+        except:
+            self.isotopes = []
         self.isotopeBoxes = []
         
         self.isotopeChosen = None
@@ -43,9 +46,12 @@ class IsotopeSelectionView(arcade.View):
             text = str(isotope) if isotope else "Unknown Isotope"
             self.isotopeBoxes.append(IsotopeBox(text, 100*i + 100, 500, window_height / 15))
 
-            
-        for isotopeBox in self.isotopeBoxes:
-            isotopeBox.draw()
+        if self.isotopes == []:
+            arcade.draw_text("no unstable isotopes", self.window.get_size()[0] /2.5, self.window.get_size()[1] /2, arcade.color.WHITE, 15, )
+        else:
+            for isotopeBox in self.isotopeBoxes:
+                # print(self.isotopeBoxes)
+                isotopeBox.draw()
 
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
