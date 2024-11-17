@@ -9,7 +9,6 @@ from model.DecayingElement import DecayingElement
 from widgets.DecaySprite import DecaySprite
 from widgets.Player import Player
 
-MOVEMENT_SPEED = 5
 
 
 class GameView(arcade.View):
@@ -53,27 +52,14 @@ class GameView(arcade.View):
         arcade.start_render()
 
         #region Draw the background
-        arcade.draw_lrwh_rectangle_textured(0, 0,
-                                            480, 270,
-                                            self.background, alpha=125)
+        number_of_grids = 4
+        
+        for i in range(number_of_grids):
+            for j in range(number_of_grids):
+                arcade.draw_lrwh_rectangle_textured(480 * i, 270 * j,
+                                                    480, 270,
+                                                    self.background, alpha=125)
 
-        arcade.draw_lrwh_rectangle_textured(480, 270,
-                                            480, 270,
-                                            self.background, alpha=125)
-
-        arcade.draw_lrwh_rectangle_textured(0, 270,
-                                            480, 270,
-                                            self.background, alpha=125)
-        arcade.draw_lrwh_rectangle_textured(480, 0,
-                                            480, 270,
-                                            self.background, alpha=125)
-        arcade.draw_lrwh_rectangle_textured(480, 270 * 2,
-                                            480, 270,
-                                            self.background, alpha=125)
-
-        arcade.draw_lrwh_rectangle_textured(0, 270 * 2,
-                                            480, 270,
-                                            self.background, alpha=125)
         # endregion
 
         # Draw the player and decay opportunities
@@ -143,6 +129,6 @@ class GameView(arcade.View):
         
     def win(self):
         from views.WinView import WinView
-        self.window.show_view(WinView(self.elapsed_time))
+        self.window.show_view(WinView(self.elapsed_time, self.element))
 
 

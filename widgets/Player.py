@@ -26,7 +26,7 @@ class Player(Sprite):
         self.moving_right = False
         self.moving_left = False
 
-        self.movement_speed = 5
+        self.movement_speed = arcade.get_window().get_size()[0] / 100
         self.element = element
 
     def isColliding(self, x, y, width, height):
