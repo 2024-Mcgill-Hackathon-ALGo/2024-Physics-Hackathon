@@ -1,5 +1,5 @@
+import math
 import random
-import time
 
 import arcade
 from arcade import SpriteList
@@ -24,7 +24,9 @@ class GameView(arcade.View):
         self.camera = None
         self.element = element
         self.decay_opportunities = SpriteList()
-
+        print(self.element.half_life)
+        self.max_time = 10 + (math.log(self.element.half_life) + 24) * 20 / 48
+        self.temps_restant = self.max_time
         self.time_passed = 0  # var that we will eventually pass to game over view to display the time
 
     def setup(self):
@@ -39,8 +41,10 @@ class GameView(arcade.View):
 
     def reset(self):
         # for sprite in self.decay_opportunities.sprite_list:
+        self.max_time = 10 + (math.log(self.element.half_life) + 24) * 20 / 48
+        self.temps_restant = self.max_time
         self.decay_opportunities.clear()
-        
+
         for decay_type in DecayType:
             self.decay_opportunities.append(DecaySprite(decay_type,
                                                         random.uniform(100, self.window.width - 100),
@@ -52,9 +56,9 @@ class GameView(arcade.View):
         self.camera.use()
         arcade.start_render()
 
-        #region Draw the background
+        # region Draw the background
         number_of_grids = 4
-        
+
         for i in range(number_of_grids):
             for j in range(number_of_grids):
                 arcade.draw_lrwh_rectangle_textured(480 * i, 270 * j,
@@ -69,16 +73,20 @@ class GameView(arcade.View):
             sprite.draw()
 
         # timer :D
-        arcade.draw_text(f"Time: {self.time_passed:.2f} seconds",
+        arcade.draw_text(f"Time: {self.time_passed:.2f} Years",
                          10, self.window.height - 30,
                          arcade.color.WHITE, 18)
-        
+
+        arcade.draw_text(f"Time to change : {self.temps_restant:.2f} seconds",
+                         10, self.window.height - 100,
+                         arcade.color.WHITE, 18)
+
         for i, decay_type in enumerate(self.element.possible_decays.keys()):
             element_result = self.element.possible_decays[decay_type]
             element_box = ElementBox(element_result, 250, self.window.height - 30 - 30 * (i + 1), 25)
             element_box.simple_draw()
-            arcade.draw_text(f"{decay_type.name} : ", 10, self.window.height - 30 - 30 * (i + 1), arcade.color.WHITE, 18)
- 
+            arcade.draw_text(f"{decay_type.name} : ", 10, self.window.height - 30 - 30 * (i + 1), arcade.color.WHITE,
+                             18)
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
@@ -98,8 +106,10 @@ class GameView(arcade.View):
 
     def update(self, delta_time):
         # Update elapsed time
-        self.time_passed += delta_time * map_time(10, 0, 10, 0, self.player.element.half_life)
-
+        self.time_passed += map_time(delta_time,
+                                     0, self.max_time,
+                                     0, self.player.element.half_life)
+        self.temps_restant -= delta_time
         self.player.update(delta_time)
 
         # Check for collisions
@@ -108,11 +118,11 @@ class GameView(arcade.View):
             if isinstance(sprite, DecaySprite) and self.element.possible_decays.get(sprite.decay_type) is not None:
                 # print("Decay type: ", sprite.decay_type)
                 # print("Element: ", self.element.possible_decays.get(sprite.decay_type).possible_decays)
-                
+
                 if self.element.possible_decays.get(sprite.decay_type).possible_decays == {}:
                     self.win()
                     return
-                
+
                 self.element = self.element.possible_decays.get(sprite.decay_type)
                 self.player.element = self.element
                 self.reset()
@@ -134,9 +144,7 @@ class GameView(arcade.View):
     def die(self):
         from views.GameOverView import GameOverView
         self.window.show_view(GameOverView(self.time_passed))
-        
+
     def win(self):
         from views.WinView import WinView
         self.window.show_view(WinView(self.time_passed, self.element))
-
-

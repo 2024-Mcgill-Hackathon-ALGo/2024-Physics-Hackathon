@@ -1,7 +1,10 @@
+import math
+
 import arcade
 import arcade.gui
 import time as time_module
 
+from services.utils import convert_year_float
 from views.MainMenu import MainMenuView as main
 
 
@@ -35,21 +38,32 @@ class GameOverView(arcade.View):
                          arcade.color.WHITE, 54, anchor_x="center")
 
         if self.time is not None:
-            arcade.draw_text(f"Your time was... {self.displayed_time:.2f} seconds!",
-                             self.window.get_size()[0] / 2, self.window.get_size()[1] / 4,
+            year, months, days,  hours, minutes, seconds = convert_year_float(self.time)
+            height_offset = 40
+            arcade.draw_text(f"Your time was... {year} Years, \n",
+                             self.window.get_size()[0] / 2, self.window.get_size()[1] / 4 + (height_offset:=height_offset - 40),
+                             arcade.color.YELLOW, 24, anchor_x="center")
+
+            arcade.draw_text(f"{months} Months, {days} Days, {hours} Hours, {minutes} Minutes, ",
+                             self.window.get_size()[0] / 2, self.window.get_size()[1] / 4 + (height_offset:=height_offset - 40),
+                             arcade.color.YELLOW, 24, anchor_x="center")
+
+            arcade.draw_text(f"\n{seconds:.2f} seconds",
+                             self.window.get_size()[0] / 2, self.window.get_size()[1] / 4 + height_offset - 40,
                              arcade.color.YELLOW, 24, anchor_x="center")
 
         self.manager.draw()
 
     def update(self, delta_time: float):
+        pass
         # Here I wanted to animate the time and make it look like it's counting up
         # if this randomly breaks something feel free to delete it and just display the time as is
-        current_time = time_module.time()
-        if self.displayed_time < self.time:
-            elapsed_since_last_update = current_time - self.last_update_time
-            self.displayed_time += elapsed_since_last_update * 5  # Speed up animation
-            self.displayed_time = min(self.displayed_time, self.time)  
-            self.last_update_time = current_time
+        #current_time = time_module.time()
+        #if self.displayed_time < self.time:
+        #    elapsed_since_last_update = current_time - self.last_update_time
+        #    self.displayed_time += elapsed_since_last_update * 5  # Speed up animation
+        #    self.displayed_time = min(self.displayed_time, self.time)
+         #   self.last_update_time = current_time
 
     def goToMainMenu(self, event):
         print("Returning to the main menu")
