@@ -28,8 +28,10 @@ class mapper:
             elif(a == "β+"):
                 possible_decays[DecayType.BETA_PLUS] = mapper.toDecayingElement(b)
             
+        half_life = fetchedElement.half_life('y')
+        
                 
-        return DecayingElement(elementSymbol, atomic_number, atomic_weight, possible_decays)
+        return DecayingElement(elementSymbol, atomic_number, atomic_weight, possible_decays, half_life)
 
 
 # Example usage with debugging methodes that are in decayinElement.py

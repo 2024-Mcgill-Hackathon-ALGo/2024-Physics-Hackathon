@@ -36,8 +36,6 @@ class GameView(arcade.View):
             self.background = None
 
     def reset(self):
-        # self.decay_opportunities.sprite_list = []
-        
         # for sprite in self.decay_opportunities.sprite_list:
         self.decay_opportunities.clear()
         

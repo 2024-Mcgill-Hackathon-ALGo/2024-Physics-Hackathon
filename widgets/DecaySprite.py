@@ -1,5 +1,5 @@
 import random
-
+import math
 import arcade
 from arcade import Sprite
 from pyglet.math import Vec2
@@ -64,3 +64,23 @@ class DecaySprite(Sprite):
         arcade.draw_text(self.label, self.center_x - self.radius / 2, self.center_y + self.radius + 5, arcade.color.WHITE, 12)
         self.draw_hit_box(color=arcade.color.RED_BROWN)
 
+
+    @staticmethod
+    def get_number_of_decay_sprites(half_life):
+        if half_life is None:
+            return 0  # no decay opportunities : Element is stable
+        else:
+            
+            if half_life <= 0:
+                return 10
+            log_half_life = math.log10(half_life)
+            if log_half_life <= -3:  
+                return 10
+            elif log_half_life <= 0:  
+                return 8
+            elif log_half_life <= 3: 
+                return 6
+            elif log_half_life <= 6:  
+                return 4
+            else:  
+                return 2
