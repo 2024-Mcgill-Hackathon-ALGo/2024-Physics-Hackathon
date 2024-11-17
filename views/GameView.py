@@ -8,18 +8,19 @@ from widgets.Player import Player
 from widgets.DebuggingSquare import TestSquare
 
 MOVEMENT_SPEED = 5
+PLAYER_SIZE = 30
 
 class GameView(arcade.View):
     def __init__(self, element: DecayingElement | None):
         super().__init__()
-        self.player = Player(100, 100, 50, 50)
+        self.player = Player(100, 100, PLAYER_SIZE, PLAYER_SIZE)
 
         self.background = None
         self.camera = None
         self.element = element
         self.decay_opportunities = SpriteList()
         for decay_type in DecayType:
-            self.decay_opportunities.append(DecaySprite(decay_type))
+            self.decay_opportunities.append(DecaySprite(decay_type, 300, 300))
         
     def setup(self):
         width, height = self.window.get_size()
@@ -39,26 +40,27 @@ class GameView(arcade.View):
         #region drawing background
         arcade.draw_lrwh_rectangle_textured(0, 0,
                                             480, 270,
-                                            self.background)
+                                            self.background, alpha=125)
 
         arcade.draw_lrwh_rectangle_textured(480, 270,
                                             480, 270,
-                                            self.background)
+                                            self.background, alpha=125)
 
         arcade.draw_lrwh_rectangle_textured(0, 270,
                                             480, 270,
-                                            self.background)
+                                            self.background, alpha=125)
         arcade.draw_lrwh_rectangle_textured(480, 0,
                                             480, 270,
-                                            self.background)
+                                            self.background, alpha=125)
         arcade.draw_lrwh_rectangle_textured(480, 270*2,
                                             480, 270,
-                                            self.background)
+                                            self.background, alpha=125)
 
         arcade.draw_lrwh_rectangle_textured(0, 270*2,
                                             480, 270,
-                                            self.background)
+                                            self.background, alpha=125)
         # endregion
+        
         self.player.draw()
         for sprite in self.decay_opportunities.sprite_list:
             sprite.draw()
@@ -89,11 +91,22 @@ class GameView(arcade.View):
             if isinstance(sprit, DecaySprite):
                 pass
 
-        self.decay_opportunities.on_update(delta_time)
+        self.decay_opportunities.on_update(delta_time)\
+            
+        # if player is colliding with screen border stop moving
+        if self.player.left < 0 or self.player.right > self.window.get_size()[0]:
+            self.player.stop_moving()
+            self.die()
+        if self.player.bottom < 0 or self.player.top > self.window.get_size()[1]:
+            self.player.stop_moving()
+            self.die()
             
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
         pass
+    
+    def die():
+        print("You died")
             
 if __name__ == "__main__":
     window = arcade.Window(1920, 1080)
