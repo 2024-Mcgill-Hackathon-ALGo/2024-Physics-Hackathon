@@ -21,6 +21,11 @@ class GameView(arcade.View):
         self.camera = None
         self.element = element
         self.decay_opportunities = SpriteList()
+        
+        # Feedback variables 
+        self.message = ""
+        self.message_duration = 2.0 
+        self.message_timer = 0.0
 
     def setup(self):
         self.reset()
@@ -71,6 +76,23 @@ class GameView(arcade.View):
         self.player.draw()
         for sprite in self.decay_opportunities.sprite_list:
             sprite.draw()
+            
+        # Feedback 
+        arcade.draw_text(
+        f"Current Element: {self.element.symbol} (Atomic Number: {self.element.atomic_number})",
+        10, self.window.height - 30, arcade.color.WHITE, 14
+    )
+
+    # Draw the message if it's active
+        if self.message:
+            arcade.draw_rectangle_filled(
+                self.window.width / 2, self.window.height / 2, 400, 50, arcade.color.BLACK + (200,)
+            )
+            arcade.draw_text(
+                self.message, self.window.width / 2, self.window.height / 2,
+                arcade.color.WHITE, 14, anchor_x="center", anchor_y="center", align="center", width=380
+            )
+                
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
@@ -95,9 +117,20 @@ class GameView(arcade.View):
         player_collision_list = arcade.check_for_collision_with_lists(self.player, [self.decay_opportunities])
         for sprit in player_collision_list:
             print(sprit.center_x)
-            if isinstance(sprit, DecaySprite) and self.element.possible_decays.get(sprit.decay_type) is not None:
-                self.element = self.element.possible_decays.get(sprit.decay_type)
-                self.reset()
+            if isinstance(sprit, DecaySprite):
+                if self.element.possible_decays.get(sprit.decay_type) is not None:
+                    old_element = self.element
+                    self.element = self.element.possible_decays.get(sprit.decay_type)
+                    self.reset()
+    
+            # Feeback message 
+            # Valid decay mode
+                    self.message = f"Successful decay: {old_element.symbol} decayed into {self.element.symbol} via {sprit.decay_type.name} decay."
+                    self.message_timer = self.message_duration
+                else:
+                
+                    self.message = f"{sprit.decay_type.name} decay not possible for {self.element.symbol}."
+                    self.message_timer = self.message_duration
 
         self.decay_opportunities.on_update(delta_time)
 
