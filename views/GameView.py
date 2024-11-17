@@ -5,7 +5,6 @@ from model.DecayType import DecayType
 from model.DecayingElement import DecayingElement
 from widgets.DecaySprite import DecaySprite
 from widgets.Player import Player
-from widgets.DebuggingSquare import TestSquare
 
 MOVEMENT_SPEED = 5
 PLAYER_SIZE = 30
@@ -105,7 +104,7 @@ class GameView(arcade.View):
         """Called when the user releases a key. """
         pass
     
-    def die():
+    def die(self):
         print("You died")
             
 if __name__ == "__main__":
