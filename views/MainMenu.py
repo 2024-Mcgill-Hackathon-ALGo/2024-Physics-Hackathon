@@ -70,7 +70,7 @@ class MainMenuView(arcade.View):
         # Title
         arcade.draw_text(
             # text
-            "ALGo periodic game",
+            "ALGo : Stability race",
 
             # position
             self.window.get_size()[0] / 2,

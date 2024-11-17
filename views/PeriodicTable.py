@@ -1,7 +1,6 @@
 import arcade
 import json
 
-from views.GameView import GameView
 from widgets.ElementBox import ElementBox
 from model.Element import Element
 from views import IsotopeSelection

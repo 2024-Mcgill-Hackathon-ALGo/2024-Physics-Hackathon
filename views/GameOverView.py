@@ -1,10 +1,10 @@
 import arcade
 import arcade.gui
 
-from views.MainMenu import MainMenuView
+from views.MainMenu import MainMenuView as main
 
 class GameOverView(arcade.View):
-    def __init__(self, time):
+    def __init__(self, time=None):
         super().__init__()
         self.time = time
         self.manager = arcade.gui.UIManager()
@@ -37,7 +37,7 @@ class GameOverView(arcade.View):
 
     def goToMainMenu(self, event):
         print("go to main menu")
-        main_menu = MainMenuView()
+        main_menu = main()
         main_menu.setup()
         self.window.show_view(main_menu)
         self.manager.disable()

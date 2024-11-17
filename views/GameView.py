@@ -114,7 +114,8 @@ class GameView(arcade.View):
         pass
 
     def die(self):
-        print("You died")
+        from views.GameOverView import GameOverView
+        self.window.show_view(GameOverView())
 
 
 if __name__ == "__main__":
