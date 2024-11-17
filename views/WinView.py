@@ -35,7 +35,6 @@ class WinView(arcade.View):
     def on_draw(self):
         arcade.start_render()
         arcade.draw_text("You won! You are now a stable element!", self.window.get_size()[0]/2, self.window.get_size()[1] / 1.25, arcade.color.BLACK, 30, anchor_x="center")
-        print(self.elapsed_time)
         year, months, days, hours, minutes, seconds = convert_year_float(self.elapsed_time)
 
         height_offset = 40

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 # Create a Nuclide object for U-235
 # u235 = rd.Nuclide('U-235')
-# print(u235.decay_data)
+#
 
 
 # # Plot the decay chain of U-235
@@ -22,13 +22,13 @@ nuclide = rd.Nuclide('Pb-208')
 
 
 daughters = nuclide.progeny()
-print(daughters)
+
 
 decay_modes = nuclide.decay_modes()
-print(decay_modes)
+
 
 # atomic_number = nuclide.Z
-# print(atomic_number)
+#
 
 
 
@@ -38,8 +38,8 @@ decay_data = rd.DEFAULTDATA
 
 # Get a list of all radionuclides
 # radionuclides = decay_data.nuclides
-# print(f"Total number of radionuclides: {len(radionuclides)}")
-# print(radionuclides)
+#
+#
 
 
 # # Filter for radioactive nuclides
@@ -47,8 +47,8 @@ decay_data = rd.DEFAULTDATA
 #     nuclide for nuclide in radionuclides
 #     if decay_data.half_life(nuclide) != float('inf')
 # ]
-# print(f"Total number of radioactive nuclides: {len(radioactive_nuclides)}")
-# print(radioactive_nuclides)
+#
+#
 
 from collections import defaultdict
 

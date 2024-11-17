@@ -18,7 +18,7 @@ class DebuggingView(arcade.Window):
         try:    
             self.background = arcade.load_texture(r"ressources\CharacterBranch\34713.jpg")
         except:
-            print("Error loading background image")
+
             self.background = None
     
     def on_draw(self):
@@ -85,7 +85,7 @@ class DebuggingView(arcade.Window):
         
         #test collision
         if self.player.isColliding(self.square.x, self.square.y, self.square.width, self.square.height):
-            # print("Colliding")
+            #
             pass
             
         self.center_camera_to_player()
