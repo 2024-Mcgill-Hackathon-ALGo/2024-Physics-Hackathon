@@ -8,8 +8,8 @@ from model.DecayType import DecayType
 from model.DecayingElement import DecayingElement
 from widgets.DecaySprite import DecaySprite
 from widgets.Player import Player
+from widgets.ElementBox import ElementBox
 
-MOVEMENT_SPEED = 5
 
 def map_time(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
@@ -53,27 +53,14 @@ class GameView(arcade.View):
         arcade.start_render()
 
         #region Draw the background
-        arcade.draw_lrwh_rectangle_textured(0, 0,
-                                            480, 270,
-                                            self.background, alpha=125)
+        number_of_grids = 4
+        
+        for i in range(number_of_grids):
+            for j in range(number_of_grids):
+                arcade.draw_lrwh_rectangle_textured(480 * i, 270 * j,
+                                                    480, 270,
+                                                    self.background, alpha=125)
 
-        arcade.draw_lrwh_rectangle_textured(480, 270,
-                                            480, 270,
-                                            self.background, alpha=125)
-
-        arcade.draw_lrwh_rectangle_textured(0, 270,
-                                            480, 270,
-                                            self.background, alpha=125)
-        arcade.draw_lrwh_rectangle_textured(480, 0,
-                                            480, 270,
-                                            self.background, alpha=125)
-        arcade.draw_lrwh_rectangle_textured(480, 270 * 2,
-                                            480, 270,
-                                            self.background, alpha=125)
-
-        arcade.draw_lrwh_rectangle_textured(0, 270 * 2,
-                                            480, 270,
-                                            self.background, alpha=125)
         # endregion
 
         # Draw the player and decay opportunities
@@ -85,6 +72,13 @@ class GameView(arcade.View):
         arcade.draw_text(f"Time: {self.time_passed:.2f} seconds",
                          10, self.window.height - 30,
                          arcade.color.WHITE, 18)
+        
+        for i, decay_type in enumerate(self.element.possible_decays.keys()):
+            element_result = self.element.possible_decays[decay_type]
+            element_box = ElementBox(element_result, 250, self.window.height - 30 - 30 * (i + 1), 25)
+            element_box.simple_draw()
+            arcade.draw_text(f"{decay_type.name} : ", 10, self.window.height - 30 - 30 * (i + 1), arcade.color.WHITE, 18)
+ 
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
@@ -143,6 +137,6 @@ class GameView(arcade.View):
         
     def win(self):
         from views.WinView import WinView
-        self.window.show_view(WinView(self.time_passed))
+        self.window.show_view(WinView(self.time_passed, self.element))
 
 

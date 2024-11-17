@@ -1,9 +1,10 @@
 import arcade
 
 from views.MainMenu import MainMenuView as main
+from widgets.Player import Player
 
 class WinView(arcade.View):
-    def __init__(self, elapsed_time):
+    def __init__(self, elapsed_time, stable_element):
         super().__init__()
         self.elapsed_time = elapsed_time
         
@@ -20,14 +21,21 @@ class WinView(arcade.View):
                 child=self.v_box,
             )
         )
+        
+        self.stable_element = stable_element
+        
+        self.player = Player(self.window.get_size()[0] / 2, self.window.get_size()[1] / 1.5, 50, 50,  self.stable_element)
 
     def on_show(self):
-        arcade.set_background_color(arcade.color.AMAZON)
+        arcade.set_background_color(arcade.color.GHOST_WHITE)
 
     def on_draw(self):
         arcade.start_render()
-        arcade.draw_text("You won! You are now a stable element!", self.window.get_size()[0]/2, self.window.get_size()[1] / 1.5, arcade.color.BLACK, 30, anchor_x="center")
+        arcade.draw_text("You won! You are now a stable element!", self.window.get_size()[0]/2, self.window.get_size()[1] / 1.25, arcade.color.BLACK, 30, anchor_x="center")
         arcade.draw_text(f"Time: {self.elapsed_time:.2f}", self.window.get_size()[0]/2, self.window.get_size()[1] / 5, arcade.color.BLACK, 24, anchor_x="center")
+        
+        
+        self.player.draw()
         
         self.manager.draw()
 
