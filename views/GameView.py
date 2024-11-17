@@ -118,7 +118,7 @@ class GameView(arcade.View):
                 # print("Element: ", self.element.possible_decays.get(sprite.decay_type).possible_decays)
 
                 if self.element.possible_decays.get(sprite.decay_type).possible_decays == {}:
-                    self.win()
+                    self.win(self.element.possible_decays.get(sprite.decay_type))
                     return
 
                 self.element = self.element.possible_decays.get(sprite.decay_type)
@@ -142,6 +142,6 @@ class GameView(arcade.View):
         from views.GameOverView import GameOverView
         self.window.show_view(GameOverView(self.time_passed))
 
-    def win(self):
+    def win(self, element):
         from views.WinView import WinView
-        self.window.show_view(WinView(self.time_passed, self.element))
+        self.window.show_view(WinView(self.time_passed, element))
