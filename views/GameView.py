@@ -8,6 +8,7 @@ from model.DecayType import DecayType
 from model.DecayingElement import DecayingElement
 from widgets.DecaySprite import DecaySprite
 from widgets.Player import Player
+from widgets.ElementBox import ElementBox
 
 
 
@@ -71,6 +72,13 @@ class GameView(arcade.View):
         arcade.draw_text(f"Time: {self.elapsed_time:.2f} seconds",
                          10, self.window.height - 30,
                          arcade.color.WHITE, 18)
+        
+        for i, decay_type in enumerate(self.element.possible_decays.keys()):
+            element_result = self.element.possible_decays[decay_type]
+            element_box = ElementBox(element_result, 250, self.window.height - 30 - 30 * (i + 1), 25)
+            element_box.simple_draw()
+            arcade.draw_text(f"{decay_type.name} : ", 10, self.window.height - 30 - 30 * (i + 1), arcade.color.WHITE, 18)
+ 
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """

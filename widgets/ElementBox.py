@@ -42,6 +42,11 @@ class ElementBox:
         arcade.draw_rectangle_outline(self.x, self.y, self.width, self.height, arcade.color.BLACK, 2)
         arcade.draw_text(self.element.symbol, self.x - 15, self.y - 5, arcade.color.BLACK, 14, bold=True)
         arcade.draw_text(self.element.name[:5], self.x - 15, self.y + 10, arcade.color.BLACK, 9, anchor_x="left")
+        
+    def simple_draw(self):
+        arcade.draw_rectangle_filled(self.x, self.y, self.width, self.height, category_colors[self.element_category])
+        arcade.draw_rectangle_outline(self.x, self.y, self.width, self.height, arcade.color.BLACK, 2)
+        arcade.draw_text(self.element.symbol, self.x - 15, self.y - 5, arcade.color.BLACK, 14, bold=True)
 
 
     def is_clicked(self, x, y):
