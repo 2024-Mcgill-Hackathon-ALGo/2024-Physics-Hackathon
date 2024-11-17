@@ -37,7 +37,11 @@ class GameView(arcade.View):
             self.background = None
 
     def reset(self):
-        self.decay_opportunities.sprite_list = []
+        # self.decay_opportunities.sprite_list = []
+        
+        # for sprite in self.decay_opportunities.sprite_list:
+        self.decay_opportunities.clear()
+        
         for decay_type in DecayType:
             self.decay_opportunities.append(DecaySprite(decay_type,
                                                         random.uniform(100, self.window.width - 100),
@@ -49,7 +53,7 @@ class GameView(arcade.View):
         self.camera.use()
         arcade.start_render()
 
-        # Draw the background
+        #region Draw the background
         arcade.draw_lrwh_rectangle_textured(0, 0,
                                             480, 270,
                                             self.background, alpha=125)
@@ -71,6 +75,7 @@ class GameView(arcade.View):
         arcade.draw_lrwh_rectangle_textured(0, 270 * 2,
                                             480, 270,
                                             self.background, alpha=125)
+        # endregion
 
         # Draw the player and decay opportunities
         self.player.draw()
@@ -109,6 +114,13 @@ class GameView(arcade.View):
         for sprite in player_collision_list:
             print(sprite.center_x)
             if isinstance(sprite, DecaySprite) and self.element.possible_decays.get(sprite.decay_type) is not None:
+                # print("Decay type: ", sprite.decay_type)
+                # print("Element: ", self.element.possible_decays.get(sprite.decay_type).possible_decays)
+                
+                if self.element.possible_decays.get(sprite.decay_type).possible_decays == {}:
+                    self.win()
+                    return
+                
                 self.element = self.element.possible_decays.get(sprite.decay_type)
                 self.reset()
 
@@ -129,4 +141,7 @@ class GameView(arcade.View):
     def die(self):
         from views.GameOverView import GameOverView
         self.window.show_view(GameOverView(self.elapsed_time))
+        
+    def win(self):
+        pass
 
