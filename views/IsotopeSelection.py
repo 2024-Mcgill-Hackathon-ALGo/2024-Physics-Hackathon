@@ -1,5 +1,6 @@
 import arcade
 from services import IsotopeGetter
+from views.GameView import GameView
 from widgets.IsotopeBox import IsotopeBox
 from model.DecayingElement import DecayingElement
 from services.ElementMapper import mapper
@@ -59,7 +60,9 @@ class IsotopeSelectionView(arcade.View):
         for isotopeBox in self.isotopeBoxes:
             if isotopeBox.is_clicked(x, y):
                 print(f"Isotope clicked: {isotopeBox.text}")
-                self.isotopeChosen = mapper.toDecayingElement(isotopeBox.text)
-                print(self.isotopeChosen.possible_decays)
+                isotope_chosen = mapper.toDecayingElement(isotopeBox.text)
+                view = GameView(isotope_chosen)
+                view.setup()
+                self.window.show_view(view)
                 break
             
