@@ -1,4 +1,4 @@
-from .Element import Element
+from model.Element import Element
 
 class DecayingElement(Element):
     def __init__(self, symbol, atomic_number, atomic_weight, possible_decays):

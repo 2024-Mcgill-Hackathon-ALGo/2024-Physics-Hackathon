@@ -1,15 +1,22 @@
 import arcade
+from arcade import Sprite
 
-class Player:
+
+class Player(Sprite):
     def __init__(self, x, y, width, height):
         
         # initial position
-        self.x = x
-        self.y = y
+        super().__init__()
+        self.center_x = x
+        self.center_y = y
         
         # initial size
         self.width = width
         self.height = height
+        self.set_hit_box([(width/2, height/2),
+                          (width/2, -height/2),
+                          (-width/2, -height/2),
+                          (-width/2, height/2)])
         
         # movement states
         self.moving_up = False
@@ -21,22 +28,23 @@ class Player:
     
     def isColliding(self, x, y, width, height):
         # check if object is colliding with the player
-        return self.x < x + width and self.x + self.width > x and self.y < y + height and self.y + self.height > y
+        return self.center_x < x + width and self.center_x + self.width > x and self.center_y < y + height and self.center_y + self.height > y
     
     def draw(self):
-        arcade.draw_rectangle_filled(self.x, self.y, self.width, self.height, arcade.color.RED)
-        
-    
+        arcade.draw_rectangle_filled(self.center_x, self.center_y, self.width, self.height, arcade.color.RED)
+        self.draw_hit_box(color=arcade.color.WHITE)
+
+
     def update(self, delta_time):
         if self.moving_up:
-            self.y += self.movement_speed
+            self.center_y += self.movement_speed
         elif self.moving_down:
-            self.y -= self.movement_speed
+            self.center_y -= self.movement_speed
         elif self.moving_left:
-            self.x -= self.movement_speed
+            self.center_x -= self.movement_speed
         elif self.moving_right:
-            self.x += self.movement_speed    
-    
+            self.center_x += self.movement_speed
+
     def stop_moving(self):
         self.moving_up = False
         self.moving_down = False

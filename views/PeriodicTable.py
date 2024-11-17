@@ -1,5 +1,7 @@
 import arcade
 import json
+
+from views.GameView import GameView
 from widgets.ElementBox import ElementBox
 from model.Element import Element
 from views import IsotopeSelection
@@ -56,7 +58,6 @@ class PeriodicTableView(arcade.View):
                 # print(f"Element clicked: {element.element.name} ({element.element.symbol})")
                 isotope_view = IsotopeSelection.IsotopeSelectionView(selected_element=element)
                 arcade.get_window().show_view(isotope_view)
-                break
 
 def load_json_data(filename):
     with open(filename, 'r', encoding='utf-8') as file:
