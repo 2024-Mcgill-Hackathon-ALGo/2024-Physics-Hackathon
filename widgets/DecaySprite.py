@@ -15,13 +15,21 @@ class DecaySprite(Sprite):
         self.set_hit_box([(radius, radius), (-radius, radius), (-radius, -radius), (radius, -radius)])
         self.decay_type = decay_type
 
+        # Set color based on decay type
+        # add labels for decay types
         if decay_type == DecayType.ALPHA:
             self.color = arcade.color.ORANGE
+            self.label = "A"
         elif decay_type == DecayType.BETA_MINUS:
-            self.color = arcade.color.GREEN
+            self.color = arcade.color.BLUE
+            self.label = "B-"
+        elif decay_type == DecayType.BETA_PLUS:
+            self.color = arcade.color.BLUE
+            self.label = "B+"
         else:
             self.color = arcade.color.LIGHT_BLUE
-        
+            self.label = "Unknown"
+
     def on_update(self, delta_time: float = 1 / 60):
         vector = Vec2(random.uniform(-1, 1),
                       random.uniform(-1, 1))
@@ -51,3 +59,7 @@ class DecaySprite(Sprite):
 
     def draw(self, *, filter=None, pixelated=None, blend_function=None):
         arcade.draw_circle_filled(self.center_x, self.center_y, self.radius, self.color)
+        
+        # put the labels above the decay sprites
+        arcade.draw_text(self.label, self.center_x - self.radius / 2, self.center_y + self.radius + 5, arcade.color.WHITE, 12)
+

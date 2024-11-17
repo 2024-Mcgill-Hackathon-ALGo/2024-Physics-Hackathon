@@ -43,8 +43,9 @@ class PeriodicTableView(arcade.View):
             self.elements.append(element_box)
 
     def on_draw(self):
+        self.clear()
         arcade.start_render()
-        arcade.set_background_color(arcade.color.BLACK)
+        arcade.set_background_color(arcade.color.WHITE_SMOKE)
         for element in self.elements:
             element.draw()
             
@@ -58,6 +59,7 @@ class PeriodicTableView(arcade.View):
                 # self.selected_element = element
                 # print(f"Element clicked: {element.element.name} ({element.element.symbol})")
                 isotope_view = IsotopeSelection.IsotopeSelectionView(selected_element=element)
+                isotope_view.setup()
                 arcade.get_window().show_view(isotope_view)
 
 def load_json_data(filename):
