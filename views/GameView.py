@@ -143,5 +143,7 @@ class GameView(arcade.View):
         self.window.show_view(GameOverView(self.elapsed_time))
         
     def win(self):
-        pass
+        from views.WinView import WinView
+        self.window.show_view(WinView(self.elapsed_time))
+
 
