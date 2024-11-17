@@ -4,6 +4,8 @@ import arcade
 from arcade import Sprite
 from pyglet.math import Vec2
 
+from model.DecayType import DecayType
+
 
 class DecaySprite(Sprite):
     def __init__(self, decay_type, center_x, center_y):
@@ -12,6 +14,13 @@ class DecaySprite(Sprite):
         self.max_speed = 10
         self.set_hit_box([(20, 20), (-20, 20), (-20, -20), (20, -20)])
         self.decay_type = decay_type
+
+        if decay_type == DecayType.ALPHA:
+            self.color = arcade.color.ORANGE
+        elif decay_type == DecayType.BETA_MINUS:
+            self.color = arcade.color.GREEN
+        else:
+            self.color = arcade.color.LIGHT_BLUE
         
     def on_update(self, delta_time: float = 1 / 60):
         vector = Vec2(random.uniform(-1, 1),
@@ -41,5 +50,4 @@ class DecaySprite(Sprite):
             self.center_y = new_y
 
     def draw(self, *, filter=None, pixelated=None, blend_function=None):
-        arcade.draw_circle_filled(self.center_x, self.center_y, self.radius, arcade.color.PINK)
-        self.draw_hit_box(color=arcade.color.WHITE)
+        arcade.draw_circle_filled(self.center_x, self.center_y, self.radius, self.color)
