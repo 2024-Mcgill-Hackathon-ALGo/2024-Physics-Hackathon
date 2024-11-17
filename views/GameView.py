@@ -13,8 +13,7 @@ class GameView(arcade.View):
     def __init__(self, element: DecayingElement | None):
         super().__init__()
         self.player = Player(100, 100, 50, 50)
-        self.square = TestSquare(200, 200, 50, 50)
-    
+
         self.background = None
         self.camera = None
         self.element = element
@@ -39,37 +38,30 @@ class GameView(arcade.View):
         
         #region drawing background
         arcade.draw_lrwh_rectangle_textured(0, 0,
-                                            1920, 1080,
+                                            480, 270,
                                             self.background)
-        
-        
-        arcade.draw_lrwh_rectangle_textured(0, 1080,
-                                            1920, 1080,
+
+        arcade.draw_lrwh_rectangle_textured(480, 270,
+                                            480, 270,
                                             self.background)
-        
-        arcade.draw_lrwh_rectangle_textured(1700, 0,
-                                            1920, 1080,
+
+        arcade.draw_lrwh_rectangle_textured(0, 270,
+                                            480, 270,
                                             self.background)
-        
-        
-        arcade.draw_lrwh_rectangle_textured(1700, 1080,
-                                            1920, 1080,
+        arcade.draw_lrwh_rectangle_textured(480, 0,
+                                            480, 270,
+                                            self.background)
+        arcade.draw_lrwh_rectangle_textured(480, 270*2,
+                                            480, 270,
+                                            self.background)
+
+        arcade.draw_lrwh_rectangle_textured(0, 270*2,
+                                            480, 270,
                                             self.background)
         # endregion
         self.player.draw()
-        self.square.draw()
         for sprite in self.decay_opportunities.sprite_list:
             sprite.draw()
-
-
-    def center_camera_to_player(self):
-        screen_center_x = self.player.center_x - (self.camera.viewport_width / 2)
-        screen_center_y = self.player.center_y - (self.camera.viewport_height / 2)
-        player_centered = screen_center_x, screen_center_y
-        
-        self.camera.move_to(player_centered)
-
-
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
@@ -97,8 +89,6 @@ class GameView(arcade.View):
             if isinstance(sprit, DecaySprite):
                 pass
 
-            
-        self.center_camera_to_player()
         self.decay_opportunities.on_update(delta_time)
             
     def on_key_release(self, key, modifiers):
