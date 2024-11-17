@@ -3,8 +3,8 @@ import arcade
 from views.MainMenu import MainMenuView
 
 # Constants for the screen
-SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 1080
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Main Menu with Arcade GUI Buttons"
 
 
@@ -21,3 +21,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
