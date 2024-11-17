@@ -62,7 +62,6 @@ class DecaySprite(Sprite):
         
         # put the labels above the decay sprites
         arcade.draw_text(self.label, self.center_x - self.radius / 2, self.center_y + self.radius + 5, arcade.color.WHITE, 12)
-        self.draw_hit_box(color=arcade.color.RED_BROWN)
 
 
     @staticmethod

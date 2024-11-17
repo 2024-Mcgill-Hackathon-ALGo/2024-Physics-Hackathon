@@ -40,7 +40,6 @@ class Player(Sprite):
         arcade.draw_text(self.element.symbol, self.center_x - 15, self.center_y - 5, arcade.color.BLACK, 14, bold=True)
         arcade.draw_text(self.element.atomic_weight, self.center_x - 15, self.center_y + 10, arcade.color.BLACK, 9,
                          anchor_x="left")
-        self.draw_hit_box(color=arcade.color.RED)
 
     def update(self, delta_time):
         if self.moving_up:

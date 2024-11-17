@@ -77,15 +77,13 @@ class GameView(arcade.View):
                          10, self.window.height - 30,
                          arcade.color.WHITE, 18)
 
-        arcade.draw_text(f"Time to change : {self.temps_restant:.2f} seconds",
-                         10, self.window.height - 100,
-                         arcade.color.WHITE, 18)
-
+        arcade.draw_text(f"Time to change : {self.temps_restant:.2f} seconds",10, self.window.height - 60, arcade.color.WHITE,
+                         18)
         for i, decay_type in enumerate(self.element.possible_decays.keys()):
             element_result = self.element.possible_decays[decay_type]
-            element_box = ElementBox(element_result, 250, self.window.height - 30 - 30 * (i + 1), 25)
+            element_box = ElementBox(element_result, 250, self.window.height - 60 - 30 * (i + 1), 25)
             element_box.simple_draw()
-            arcade.draw_text(f"{decay_type.name} : ", 10, self.window.height - 30 - 30 * (i + 1), arcade.color.WHITE,
+            arcade.draw_text(f"{decay_type.name} : ", 10, self.window.height - 60 - 30 * (i + 1), arcade.color.WHITE,
                              18)
 
     def on_key_press(self, key, modifiers):
