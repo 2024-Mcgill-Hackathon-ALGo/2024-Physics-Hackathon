@@ -32,7 +32,8 @@ class PeriodicTableView(arcade.View):
                 element_data['symbol'],
                 element_data['name'],
                 element_data['number'],
-                element_data['atomic_mass']
+                element_data['atomic_mass'],
+                element_data['category']
             )
             # spacing between elements
             xpos = element_data['xpos'] * (self.window.get_size()[0] / 20) + self.window.get_size()[0] / 20
@@ -43,6 +44,7 @@ class PeriodicTableView(arcade.View):
 
     def on_draw(self):
         arcade.start_render()
+        arcade.set_background_color(arcade.color.BLACK)
         for element in self.elements:
             element.draw()
             

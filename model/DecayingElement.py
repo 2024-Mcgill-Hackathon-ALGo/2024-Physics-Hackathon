@@ -3,8 +3,10 @@ from model.Element import Element
 
 class DecayingElement(Element):
     def __init__(self, symbol, atomic_number, atomic_weight, possible_decays):
-        self.name = "Decaying Element"
-        super().__init__(symbol, self.name, atomic_number, atomic_weight)
+        
+        # The name and category of the element is not important for the decaying element so just set them to random values
+        self.name = "Decaying Element" 
+        super().__init__(symbol, self.name, atomic_number, atomic_weight, "None")
         
         # possible decays should be a dictionnary with this structure:
         # {decay_type: child isotope}
