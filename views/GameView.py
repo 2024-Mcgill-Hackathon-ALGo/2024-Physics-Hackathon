@@ -124,3 +124,4 @@ if __name__ == "__main__":
     gameview.setup()
     window.show_view(gameview)
     arcade.run()
+    

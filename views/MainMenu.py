@@ -2,6 +2,7 @@ import arcade
 import arcade.gui
 
 from views import PeriodicTable
+from views import SettingView
 
 
 
@@ -96,6 +97,10 @@ class MainMenuView(arcade.View):
 
     def start_settings(self, event):
         print("Options clicked")
+        settings_view = SettingView.SettingsMenuView()
+        settings_view.setup()
+        arcade.get_window().show_view(settings_view)
+        self.manager.disable()
         #
 
     def quit_button(self, event):
