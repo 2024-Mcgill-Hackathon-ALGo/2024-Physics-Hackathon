@@ -1,4 +1,5 @@
 import random
+import time 
 
 import arcade
 from arcade import SpriteList
@@ -22,6 +23,9 @@ class GameView(arcade.View):
         self.element = element
         self.decay_opportunities = SpriteList()
 
+        self.start_time = time.time()  # Record the starting time
+        self.elapsed_time = 0  # var that we will eventually pass to game over view to display the time
+
     def setup(self):
         self.reset()
         width, height = self.window.get_size()
@@ -38,13 +42,14 @@ class GameView(arcade.View):
             self.decay_opportunities.append(DecaySprite(decay_type,
                                                         random.uniform(100, self.window.width - 100),
                                                         random.uniform(100, self.window.height - 100)))
+
     def on_draw(self):
         self.clear()
 
         self.camera.use()
         arcade.start_render()
 
-        #region drawing background
+        # Draw the background
         arcade.draw_lrwh_rectangle_textured(0, 0,
                                             480, 270,
                                             self.background, alpha=125)
@@ -66,11 +71,16 @@ class GameView(arcade.View):
         arcade.draw_lrwh_rectangle_textured(0, 270 * 2,
                                             480, 270,
                                             self.background, alpha=125)
-        # endregion
 
+        # Draw the player and decay opportunities
         self.player.draw()
         for sprite in self.decay_opportunities.sprite_list:
             sprite.draw()
+
+        # timer :D
+        arcade.draw_text(f"Time: {self.elapsed_time:.2f} seconds",
+                         10, self.window.height - 30,
+                         arcade.color.WHITE, 18)
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
@@ -89,19 +99,22 @@ class GameView(arcade.View):
             self.player.moving_right = True
 
     def update(self, delta_time):
+        # Update elapsed time
+        self.elapsed_time = time.time() - self.start_time
+
         self.player.update(delta_time)
 
-        #test collision
+        # Check for collisions
         player_collision_list = arcade.check_for_collision_with_lists(self.player, [self.decay_opportunities])
-        for sprit in player_collision_list:
-            print(sprit.center_x)
-            if isinstance(sprit, DecaySprite) and self.element.possible_decays.get(sprit.decay_type) is not None:
-                self.element = self.element.possible_decays.get(sprit.decay_type)
+        for sprite in player_collision_list:
+            print(sprite.center_x)
+            if isinstance(sprite, DecaySprite) and self.element.possible_decays.get(sprite.decay_type) is not None:
+                self.element = self.element.possible_decays.get(sprite.decay_type)
                 self.reset()
 
         self.decay_opportunities.on_update(delta_time)
 
-        # if player is colliding with screen border stop moving
+        # Stop player if colliding with screen borders
         if self.player.left < 0 or self.player.right > self.window.get_size()[0]:
             self.player.stop_moving()
             self.die()
@@ -117,11 +130,3 @@ class GameView(arcade.View):
         from views.GameOverView import GameOverView
         self.window.show_view(GameOverView())
 
-
-if __name__ == "__main__":
-    window = arcade.Window(1920, 1080)
-    gameview = GameView()
-    gameview.setup()
-    window.show_view(gameview)
-    arcade.run()
-    

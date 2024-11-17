@@ -49,7 +49,7 @@ class PeriodicTableView(arcade.View):
         for element in self.elements:
             element.draw()
             
-        arcade.draw_text("Please select an element", 250, self.window.get_size()[1]/10 * 9, arcade.color.WHITE, 20)
+        arcade.draw_text("Please select an element", 250, self.window.get_size()[1]/10 * 9, arcade.color.BLACK, 20)
 
 
 
