@@ -39,10 +39,32 @@ class GameView(arcade.View):
 
     def reset(self):
         self.decay_opportunities.sprite_list = []
-        for decay_type in DecayType:
-            self.decay_opportunities.append(DecaySprite(decay_type,
-                                                        random.uniform(100, self.window.width - 100),
-                                                        random.uniform(100, self.window.height - 100)))
+        
+        # RealTimeFeedBack
+        num_sprites = DecaySprite.get_number_of_decay_sprites(self.element.half_life)
+        
+       
+        
+        for _ in range(num_sprites):
+            # Decide whether to include valid or invalid decay types
+            if random.random() < 0.7 and self.element.possible_decays:
+               
+                decay_type = random.choice(list(self.element.possible_decays.keys()))
+            else:
+            
+                decay_type = random.choice(list(DecayType))
+            self.decay_opportunities.append(DecaySprite(
+                decay_type,
+                random.uniform(100, self.window.width - 100),
+                random.uniform(100, self.window.height - 100)
+            ))
+        
+        
+        
+        # for decay_type in DecayType:
+        #     self.decay_opportunities.append(DecaySprite(decay_type,
+        #                                                 random.uniform(100, self.window.width - 100),
+        #                                                 random.uniform(100, self.window.height - 100)))
     def on_draw(self):
         self.clear()
 
