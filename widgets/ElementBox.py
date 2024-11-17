@@ -1,8 +1,5 @@
 import arcade
-
-class ElementBox:
-    
-    category_colors = {
+category_colors = {
         "diatomic nonmetal": arcade.color.BRIGHT_GREEN,
         "noble gas": arcade.color.LIGHT_BLUE,
         "alkali metal": arcade.color.DEEP_PINK,
@@ -15,6 +12,11 @@ class ElementBox:
         "actinide": arcade.color.MEDIUM_PURPLE,
         "unknown": arcade.color.DAFFODIL,
     }
+
+
+class ElementBox:
+    
+
     
     def __init__(self, element, x, y, size):
         self.element = element # element object 
@@ -26,15 +28,17 @@ class ElementBox:
         self.height = size  
         self.element_category = element.element_category
         
-        if self.element_category not in self.category_colors:
+        if self.element_category not in category_colors:
             self.element_category = "unknown"
         
     def __repr__(self):
         # java toString equivalent
-        return f"Element({self.symbol}, {self.name}, {self.atomic_number}, {self.atomic_weight}, {self.category})"
+        return (f"Element({self.element.symbol}, {self.element.name}, "
+                f"{self.element.atomic_number}, {self.element.atomic_weight}, "
+                f"{self.element.category})")
 
     def draw(self):
-        arcade.draw_rectangle_filled(self.x, self.y, self.width, self.height, self.category_colors[self.element_category])
+        arcade.draw_rectangle_filled(self.x, self.y, self.width, self.height, category_colors[self.element_category])
         arcade.draw_rectangle_outline(self.x, self.y, self.width, self.height, arcade.color.BLACK, 2)
         arcade.draw_text(self.element.symbol, self.x - 15, self.y - 5, arcade.color.BLACK, 14, bold=True)
         arcade.draw_text(self.element.name[:5], self.x - 15, self.y + 10, arcade.color.BLACK, 9, anchor_x="left")
