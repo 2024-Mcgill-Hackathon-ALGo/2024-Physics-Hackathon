@@ -38,9 +38,8 @@ class Player(Sprite):
                                      arcade.color.WHITE)
         arcade.draw_rectangle_outline(self.center_x, self.center_y, self.width, self.height, arcade.color.BLACK, 2)
         arcade.draw_text(self.element.symbol, self.center_x - 15, self.center_y - 5, arcade.color.BLACK, 14, bold=True)
-        arcade.draw_text(self.element.name[:5], self.center_x - 15, self.center_y + 10, arcade.color.BLACK, 9,
+        arcade.draw_text(self.element.atomic_weight, self.center_x - 15, self.center_y + 10, arcade.color.BLACK, 9,
                          anchor_x="left")
-        # arcade.draw_rectangle_filled(self.center_x, self.center_y, self.width, self.height, arcade.color.RED)
         self.draw_hit_box(color=arcade.color.RED)
 
     def update(self, delta_time):

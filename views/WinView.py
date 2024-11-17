@@ -34,9 +34,6 @@ class WinView(arcade.View):
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
             arcade.close_window()
-        else:
-            from MainMenu import MainMenuView
-            self.window.show_view(MainMenuView())
             
     
     def goToMainMenu(self, event):

@@ -111,7 +111,6 @@ class GameView(arcade.View):
         # Check for collisions
         player_collision_list = arcade.check_for_collision_with_lists(self.player, [self.decay_opportunities])
         for sprite in player_collision_list:
-            print(sprite.center_x)
             if isinstance(sprite, DecaySprite) and self.element.possible_decays.get(sprite.decay_type) is not None:
                 # print("Decay type: ", sprite.decay_type)
                 # print("Element: ", self.element.possible_decays.get(sprite.decay_type).possible_decays)
