@@ -10,13 +10,12 @@ from widgets.DecaySprite import DecaySprite
 from widgets.Player import Player
 
 MOVEMENT_SPEED = 5
-PLAYER_SIZE = 30
 
 
 class GameView(arcade.View):
     def __init__(self, element: DecayingElement | None):
         super().__init__()
-        self.player = Player(100, 100, PLAYER_SIZE, PLAYER_SIZE)
+        self.player = Player(100, 100, self.window.get_size()[1] / 15, self.window.get_size()[1] / 15, element)
 
         self.background = None
         self.camera = None
@@ -122,6 +121,7 @@ class GameView(arcade.View):
                     return
                 
                 self.element = self.element.possible_decays.get(sprite.decay_type)
+                self.player.element = self.element
                 self.reset()
 
         self.decay_opportunities.on_update(delta_time)
