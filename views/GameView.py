@@ -128,10 +128,9 @@ class GameView(arcade.View):
         self.decay_opportunities.on_update(delta_time)
 
         # Stop player if colliding with screen borders
-        if self.player.left < 0 or self.player.right > self.window.get_size()[0]:
-            self.player.stop_moving()
-            self.die()
-        if self.player.bottom < 0 or self.player.top > self.window.get_size()[1]:
+        if (self.player.left < 0 or self.player.right > self.window.get_size()[0]\
+                or self.player.bottom < 0 or self.player.top > self.window.get_size()[1]\
+                or self.temps_restant < 0):
             self.player.stop_moving()
             self.die()
 
