@@ -1,6 +1,7 @@
 import arcade
 from arcade import SpriteList
 
+from model.DecayType import DecayType
 from model.DecayingElement import DecayingElement
 from widgets.DecaySprite import DecaySprite
 from widgets.Player import Player
@@ -17,9 +18,9 @@ class GameView(arcade.View):
         self.background = None
         self.camera = None
         self.element = element
-        self.decay_opportunity = DecaySprite()
         self.decay_opportunities = SpriteList()
-        self.decay_opportunities.append(self.decay_opportunity)
+        for decay_type in DecayType:
+            self.decay_opportunities.append(DecaySprite(decay_type))
         
     def setup(self):
         width, height = self.window.get_size()
@@ -57,11 +58,8 @@ class GameView(arcade.View):
         # endregion
         self.player.draw()
         self.square.draw()
-        #self.decay_opportunity.draw()
         for sprite in self.decay_opportunities.sprite_list:
             sprite.draw()
-
-        # self.decay_opportunities.draw_hit_boxes()
 
 
     def center_camera_to_player(self):
@@ -101,7 +99,7 @@ class GameView(arcade.View):
 
             
         self.center_camera_to_player()
-        self.decay_opportunity.on_update(delta_time)
+        self.decay_opportunities.on_update(delta_time)
             
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """

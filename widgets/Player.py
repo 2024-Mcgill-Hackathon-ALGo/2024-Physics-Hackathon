@@ -30,7 +30,7 @@ class Player(Sprite):
         # check if object is colliding with the player
         return self.center_x < x + width and self.center_x + self.width > x and self.center_y < y + height and self.center_y + self.height > y
     
-    def draw(self):
+    def draw(self, **kwargs):
         arcade.draw_rectangle_filled(self.center_x, self.center_y, self.width, self.height, arcade.color.RED)
         self.draw_hit_box(color=arcade.color.WHITE)
 
