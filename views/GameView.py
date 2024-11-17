@@ -11,6 +11,9 @@ from widgets.Player import Player
 
 MOVEMENT_SPEED = 5
 
+def map_time(x, in_min, in_max, out_min, out_max):
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
 
 class GameView(arcade.View):
     def __init__(self, element: DecayingElement | None):
@@ -22,8 +25,7 @@ class GameView(arcade.View):
         self.element = element
         self.decay_opportunities = SpriteList()
 
-        self.start_time = time.time()  # Record the starting time
-        self.elapsed_time = 0  # var that we will eventually pass to game over view to display the time
+        self.time_passed = 0  # var that we will eventually pass to game over view to display the time
 
     def setup(self):
         self.reset()
@@ -80,7 +82,7 @@ class GameView(arcade.View):
             sprite.draw()
 
         # timer :D
-        arcade.draw_text(f"Time: {self.elapsed_time:.2f} seconds",
+        arcade.draw_text(f"Time: {self.time_passed:.2f} seconds",
                          10, self.window.height - 30,
                          arcade.color.WHITE, 18)
 
@@ -102,7 +104,7 @@ class GameView(arcade.View):
 
     def update(self, delta_time):
         # Update elapsed time
-        self.elapsed_time = time.time() - self.start_time
+        self.time_passed += delta_time * map_time(10, 0, 10, 0, self.player.element.half_life)
 
         self.player.update(delta_time)
 
@@ -137,10 +139,10 @@ class GameView(arcade.View):
 
     def die(self):
         from views.GameOverView import GameOverView
-        self.window.show_view(GameOverView(self.elapsed_time))
+        self.window.show_view(GameOverView(self.time_passed))
         
     def win(self):
         from views.WinView import WinView
-        self.window.show_view(WinView(self.elapsed_time))
+        self.window.show_view(WinView(self.time_passed))
 
 
