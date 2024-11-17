@@ -1,5 +1,5 @@
 import random
-import time 
+import time
 
 import arcade
 from arcade import SpriteList
@@ -128,5 +128,5 @@ class GameView(arcade.View):
 
     def die(self):
         from views.GameOverView import GameOverView
-        self.window.show_view(GameOverView())
+        self.window.show_view(GameOverView(self.elapsed_time))
 
